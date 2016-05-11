@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /server
-java -Xms${MEM} -Xmx${MEM} -jar forge-1.7.10-10.13.3.1401-1710ls-universal.jar nogui
+java -Xms${MEM} -Xmx${MEM} -XX:MaxPermSize=256m -Dfml.queryResult=confirm -jar FTBServer-1.7.10-1614.jar nogui
