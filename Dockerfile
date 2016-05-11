@@ -24,16 +24,14 @@ RUN     apt-get --yes update && \
 RUN     sudo apt-add-repository --yes ppa:webupd8team/java && apt-get --yes update
 RUN     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
         echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
-        apt-get --yes install curl oracle-java8-installer unzip && \
+        apt-get --yes install curl oracle-java7-installer unzip && \
         apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN     mkdir /server
-RUN     wget http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/2_5_0/FTBInfinityServer.zip -O /server/pack.zip
+RUN     wget http://addons-origin.cursecdn.com/files/2241/72/AS2%201.1.5%20Server%20Files.zip -O /server/pack.zip
+RUN     wget http://addons-origin.cursecdn.com/files/2234/903/SMP%20Template.zip -O /server/map.zip
 RUN	cd /server && unzip pack.zip && rm pack.zip
-
-RUN	sh /server/FTBInstall.sh
-
-
+RUN	cd /server && unzip map.zip && rm map.zip && mv "SMP Template" world
 
 RUN     echo "eula=true" > /server/eula.txt
 
@@ -42,9 +40,8 @@ EXPOSE	8123
 
 VOLUME	["/data"]
 
-#COPY	start.sh /server/start.sh
+COPY	start.sh /server/start.sh
 
-#RUN	chmod +x /server/start.sh
-RUN	chmod +x /server/ServerStart.sh
-#CMD	["/server/start.sh"]
-CMD	["/server/ServerStart.sh"]
+RUN	chmod +x /server/start.sh
+
+CMD	["/server/start.sh"]
