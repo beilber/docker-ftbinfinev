@@ -27,7 +27,7 @@ RUN	apt-get --yes install unzip && \
 
 RUN     mkdir /server
 
-COPY	FTBInfinityServer.zip /server/pack.zip
+RUN	wget http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/2_5_0/FTBInfinityServer.zip -O /server/pack.zip
 
 RUN	cd /server && unzip pack.zip && rm pack.zip
 
