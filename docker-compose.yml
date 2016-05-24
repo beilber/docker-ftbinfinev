@@ -1,0 +1,9 @@
+ftbtest:
+  build: .
+  ports:
+   - "25566:25565"
+  environment:
+   - "MOTD=TEST - FTB Infinity Evolved"
+   - "MEM=2G"
+  volumes:
+   - "/srv/docker/ftbtest/:/data/"

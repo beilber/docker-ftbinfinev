@@ -24,6 +24,7 @@ RUN     apt-get --yes update && \
 RUN	apt-get --yes install unzip && \
         apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN	useradd -M -r minecraft 
 
 RUN     mkdir /server
 
@@ -39,7 +40,7 @@ EXPOSE	8123
 
 VOLUME	["/data"]
 COPY	server.properties /server/server.properties
-COPY	start.sh /server/start.sh
+COPY	init.sh /etc/init.d/mcserver
 
-RUN	chmod +x /server/start.sh
-CMD	["/server/start.sh"]
+RUN	chmod +x /etc/init.d/mcserver
+CMD	["/etc/init.d/mcserver","start"]
